@@ -1,0 +1,71 @@
+Basic CSS Reset
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+  display: block;
+}
+body {
+  line-height: 1;
+}
+ol, ul {
+  list-style: none;
+}
+blockquote, q {
+  quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+  content: '';
+  content: none;
+}
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+html, body, #app {
+  height: 100%;
+}
+
+.el-header {
+  height: 50px !important;
+  padding: 0 !important;
+  box-shadow: 0px 1px 1px rgba(0,0,0,0.05);
+  border-bottom: 1px solid transparent;
+}
+
+.pagination-info {
+  padding: 10px 0;
+  background-color: #fff;
+  .el-pagination {
+    justify-content: end;
+  }
+}
+
+/* 去控制台copy这段样式然后手动添加class到想给的元素上 */
+.dark-mode {
+  --el-menu-text-color: #ffffff;
+  --el-menu-hover-text-color: #cccccc;
+  --el-menu-bg-color: #282C34;
+  --el-menu-hover-bg-color: #333333
+}
