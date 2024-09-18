@@ -1,9 +1,10 @@
 <template>
   <div class="common-layout">
     <el-container>
-      <el-aside width="200px">
+      <!-- 发现把宽度切换时的样式写在el-aside里会出现样式0.1秒的错乱，不如写在Aside内 -->
+      <!-- <el-aside :style="{width: !isCollapse ? '230px' : '64px'}"> -->
         <Aside />
-      </el-aside>
+      <!-- </el-aside> -->
       <el-container>
         <el-header>
           <Header />
@@ -29,4 +30,5 @@ import Header from "../components/header.vue";
     height: 100%;
   }
 }
+
 </style>

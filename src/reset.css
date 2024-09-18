@@ -69,3 +69,8 @@ html, body, #app {
   --el-menu-bg-color: #282C34;
   --el-menu-hover-bg-color: #333333
 }
+
+/* 这句让eldrop-link没有黑框 */
+:focus-visible {
+  outline: none;
+}

@@ -1,12 +1,14 @@
 <template>
-  <el-menu
+<el-menu
+:style="{width: !isCollapse ? '230px' : '64px'}"
     default-active="2"
     class="aside-box dark-mode"
+    :collapse="isCollapse"
     @open="handleOpen"
     @close="handleClose"
   >
-    <p class="title">DUCK陪诊</p>
-    <TreeMenu :menuData="menuData" :index="1" />
+  <p class="title" >Duck <span v-show="!isCollapse">陪诊</span></p>
+    <TreeMenu :menuData="menuData || []" index="1" />
   </el-menu>
 
 </template>
@@ -18,12 +20,15 @@ import TreeMenu from "./treeMenu.vue";
 // 并且，为了修改路由时aside会实时更新，应把路由信息作为响应式数据
 // 之所以不直接在treeMenu上获取，是因为需要多个treeMenu实例，凡组件调用，都通过父组件传值的方式，以便子组件复用
 import { useRouter } from "vue-router";
-import { reactive } from "vue";
+import { reactive, computed } from "vue";
+import { useStore } from "vuex";
 
 
 
 const router = useRouter();
 const menuData = reactive(router.options.routes[0].children)
+const store = useStore()
+const isCollapse = computed(() => store.state.menu.isCollapse)
 
 const handleOpen = (key, keyPath) => {
   console.log(key, keyPath);
@@ -37,6 +42,7 @@ const handleClose = (key, keyPath) => {
 <style lang="less" scoped>
 .aside-box {
   height: 100%;
+  border: 0;
 
   .title {
     font-size: 20px;
@@ -46,4 +52,5 @@ const handleClose = (key, keyPath) => {
     color: #fff;
   }
 }
+
 </style>
