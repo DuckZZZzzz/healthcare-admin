@@ -37,6 +37,8 @@
 <script setup>
 import { defineProps } from 'vue';
 import { useRouter } from 'vue-router';
+import { useStore } from 'vuex';
+
 
 const props = defineProps({
   menuData: Array,
@@ -45,8 +47,11 @@ const props = defineProps({
 
 const router = useRouter();
 
+const store = useStore();
+
 const handleClick = (item, activeItem) => {
   if (item.meta && item.meta.path) {
+    store.commit('addMenu', item.meta)
     router.push(item.meta.path);
   } else {
     console.error('Invalid path or meta information:', item);
