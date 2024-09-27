@@ -13,7 +13,7 @@ app.use(store)
 
 app.mount('#app')
 
-
+// 这里只是对页面做了element-plus的引入，因此页面内组件都不需要另外引入，但是request.js不属于页面内，要额外引入
 for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
   app.component(key, component)
 }

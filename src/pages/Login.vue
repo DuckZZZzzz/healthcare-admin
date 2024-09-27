@@ -9,25 +9,26 @@
             <div class="jump-link">
                 <el-link type="primary" @click="switchToRegister">{{ showRegisterPage ? '切换到登录页' : '切换到注册页' }}</el-link>
             </div>
-            <el-form :model="loginForm" :rules="rules">
+            <!-- 注意这里ref没有 : -->
+            <el-form :model="loginForm" :rules="rules" ref="loginFormRef">
                 <!-- 在使用了 validate、resetFields 的方法时，prop属性是必填的!!! -->
                 <el-form-item prop="phoneNum">
-                    <el-input v-model="loginForm.phoneNum" placeholder="手机号" :prefix-icon="Search">
+                    <el-input v-model="loginForm.phoneNum" placeholder="手机号" prefix-icon="Search">
                     </el-input>
                 </el-form-item>
                 <el-form-item prop="passWord">
-                    <el-input v-model="loginForm.passWord" type="password" placeholder="密码" :prefix-icon="Lock">
+                    <el-input v-model="loginForm.passWord" type="password" placeholder="密码" prefix-icon="Lock">
                     </el-input>
                 </el-form-item>
                 <el-form-item v-if="showRegisterPage" prop="validCode">
-                    <el-input v-model="loginForm.validCode" placeholder="验证码" :prefix-icon="Lock">
+                    <el-input v-model="loginForm.validCode" placeholder="验证码" prefix-icon="Lock">
                         <template #append>
                             <span @click="countdownChange">{{ countdown.text }}</span>
                         </template>
                     </el-input>
                 </el-form-item>
                 <el-form-item>
-                    <el-button type="primary" style="width: 100%" @click="submitForm">
+                    <el-button type="primary" style="width: 100%" @click="submitForm(loginFormRef)">
                         {{ showRegisterPage ? '注册' : '登录' }}
                     </el-button>
                 </el-form-item>
@@ -38,7 +39,7 @@
 
 <script setup>
 import { ref, reactive } from 'vue';
-import { Lock, Search } from '@element-plus/icons-vue'
+import { getCode, checkCode, login } from '../api';
 
 const backgroundImage = '../../public/images/login-head.png';
 // 默认登录页，切换到注册页面
@@ -89,8 +90,7 @@ const countdown = reactive({
     count: 60,
     text: '获取验证码'
 })
-// 获取验证码, 
-// 注意hasSend不是常量，不能用const
+// 获取验证码, 注意hasSend不是常量，不能用const
 let hasSend = false;
 let timer = null;
 const countdownChange = () => {
@@ -98,10 +98,11 @@ const countdownChange = () => {
     if (hasSend) return;
     // 未发送，先判断手机号是否正确
     const phoneReg = /^1[3-9]\d{9}$/;
-    if (!loginForm.phoneNum || !phoneReg.test(loginForm.phoneNum)) {
+    const passwordReg = /^[A-Za-z0-9_]{4,12}$/;
+    if (!loginForm.phoneNum || !phoneReg.test(loginForm.phoneNum) || !loginForm.passWord || !passwordReg.test(loginForm.passWord)) {
         return ElMessage({ message: '请输入正确的手机号', type: 'error' });
     }
-    // 倒计时
+    // 校验成功，倒计时
     timer = setInterval(() => {
         if (countdown.count <= 0) {
             countdown.count = 60;
@@ -114,11 +115,32 @@ const countdownChange = () => {
         }
     }, 1000)
     hasSend = true;
+    // 更好的写法是解构出data
+    getCode({ tel: loginForm.phoneNum }).then(data => {
+        if (data.data.code === 10000) {
+            ElMessage.success(data.data.msg)
+        }
+    })
 }
 
 // 表单提交
-const submitForm = () => {
+const loginFormRef = ref();
+const submitForm = async (formEl) => {
+    if (!formEl) return
+    await formEl.validate((valid, fields) => {
+        if (valid) {
+            // 注册页
+            if (showRegisterPage.value) {
+                checkCode(loginForm).then(data => console.log(data, '注册结果'))
+            } else {
+                // 登录页
+                login(loginForm).then(data => console.log(data, '登录结果'))
+            }
 
+        } else {
+            console.log('error submit!', fields)
+        }
+    })
 }
 </script>
 
