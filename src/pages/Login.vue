@@ -12,8 +12,8 @@
             <!-- 注意这里ref没有 : -->
             <el-form :model="loginForm" :rules="rules" ref="loginFormRef">
                 <!-- 在使用了 validate、resetFields 的方法时，prop属性是必填的!!! -->
-                <el-form-item prop="phoneNum">
-                    <el-input v-model="loginForm.phoneNum" placeholder="手机号" prefix-icon="Search">
+                <el-form-item prop="userName">
+                    <el-input v-model="loginForm.userName" placeholder="手机号" prefix-icon="Search">
                     </el-input>
                 </el-form-item>
                 <el-form-item prop="passWord">
@@ -39,8 +39,11 @@
 
 <script setup>
 import { ref, reactive } from 'vue';
-import { getCode, checkCode, login } from '../api';
+import { getCode, userAuthentication, login } from '../api';
+// import { ElMessage } from 'element-plus';
+import { useRouter } from 'vue-router';
 
+const router = useRouter();
 const backgroundImage = '../../public/images/login-head.png';
 // 默认登录页，切换到注册页面
 const showRegisterPage = ref(false);
@@ -50,7 +53,7 @@ const switchToRegister = () => {
 
 // 表单数据
 const loginForm = reactive({
-    phoneNum: '',
+    userName: '',
     passWord: '',
     validCode: ''
 });
@@ -82,7 +85,7 @@ const validatePass2 = (rule, value, callback) => {
     }
 };
 const rules = reactive({
-    phoneNum: [{ validator: validatePass, trigger: 'blur' }],
+    userName: [{ validator: validatePass, trigger: 'blur' }],
     passWord: [{ validator: validatePass2, trigger: 'blur' }]
 })
 // 验证码
@@ -99,7 +102,7 @@ const countdownChange = () => {
     // 未发送，先判断手机号是否正确
     const phoneReg = /^1[3-9]\d{9}$/;
     const passwordReg = /^[A-Za-z0-9_]{4,12}$/;
-    if (!loginForm.phoneNum || !phoneReg.test(loginForm.phoneNum) || !loginForm.passWord || !passwordReg.test(loginForm.passWord)) {
+    if (!loginForm.userName || !phoneReg.test(loginForm.userName) || !loginForm.passWord || !passwordReg.test(loginForm.passWord)) {
         return ElMessage({ message: '请输入正确的手机号', type: 'error' });
     }
     // 校验成功，倒计时
@@ -116,7 +119,7 @@ const countdownChange = () => {
     }, 1000)
     hasSend = true;
     // 更好的写法是解构出data
-    getCode({ tel: loginForm.phoneNum }).then(data => {
+    getCode({ tel: loginForm.userName }).then(data => {
         if (data.data.code === 10000) {
             ElMessage.success(data.data.msg)
         }
@@ -131,10 +134,26 @@ const submitForm = async (formEl) => {
         if (valid) {
             // 注册页
             if (showRegisterPage.value) {
-                checkCode(loginForm).then(data => console.log(data, '注册结果'))
+                userAuthentication(loginForm).then(({ data }) => {
+                    if (data.code === 10000) {
+                        ElMessage.success('注册成功，请登录')
+                        showRegisterPage.value === false
+                    }
+                })
             } else {
                 // 登录页
-                login(loginForm).then(data => console.log(data, '登录结果'))
+                login(loginForm).then(({ data }) => {
+                    // if (data.code === -1) return ElMessage.error(data.message);一般错误信息处理在封装request的时候写好
+                    if (data.code === 10000) {
+                        ElMessage.success('登录成功！')
+                        console.log(data)
+                        localStorage.setItem('pz_token', data.data.token)
+                        // 将token和用户信息缓存到浏览器
+                        // data.data.userInfo是一个引用类型，不能直接存到localStorage，需要JSON.stringify
+                        localStorage.setItem('pz_userInfo', JSON.stringify(data.data.userInfo))
+                        router.push('/')
+                    }
+                })
             }
 
         } else {

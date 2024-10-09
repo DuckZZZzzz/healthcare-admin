@@ -15,7 +15,7 @@ service.interceptors.request.use(
     const whiteList = ["/get/code", "/user/authentication", "/login"];
     if (token || whiteList.includes(config.url)) {
       // x-token是文档中要求的请求头的名称
-      config.headers["X-token"] = token;
+      config.headers["x-token"] = token;
     }
     return config;
   },
@@ -31,7 +31,7 @@ service.interceptors.response.use(
     // 接口异常的时候给用户发送提示
     // response.data.code === -1 是为了捕捉并处理那些尽管 HTTP 请求成功但应用层仍然认为是错误的情况
     if (response.data.code === -1) {
-      ElMessage.warning(response.data.msg);
+      ElMessage.warning(response.data.message);
     }
     // 2xx 范围内的状态码都会触发该函数。
     // 对响应数据做点什么
