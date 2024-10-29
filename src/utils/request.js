@@ -33,6 +33,12 @@ service.interceptors.response.use(
     if (response.data.code === -1) {
       ElMessage.warning(response.data.message);
     }
+    if (response.data.code === -2) {
+      localStorage.removeItem("pz_token");
+      localStorage.removeItem("pz_userInfo");
+      // 获取当前页面的路由
+      window.location.href = window.location.origin;
+    }
     // 2xx 范围内的状态码都会触发该函数。
     // 对响应数据做点什么
     return response;
