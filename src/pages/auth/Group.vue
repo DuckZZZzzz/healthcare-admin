@@ -9,7 +9,7 @@
         <el-table-column prop="permissionName" label="权限" width="500px" />
         <el-table-column label="操作" fixed="right">
             <template #default="scope">
-                <el-button link type="primary" size="small" @click=openDialog(scope.row)>
+                <el-button type="primary" size="small" @click=openDialog(scope.row)>
                     编辑
                 </el-button>
             </template>

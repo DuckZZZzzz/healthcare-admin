@@ -8,10 +8,10 @@
       <ul class="flex-box">
         <li :key="item.path" v-for="(item, index) in selectMenu" class="tab flex-box"
           :class="{ selected: item.path === route.path }">
-          <el-icon size="15">
-            <component class="icon" :is="item.icon"></component>
-          </el-icon>
-          <router-link :to="{ path: item.path }">
+          <router-link :to="{ path: item.path }" class="flex-box">
+            <el-icon size="15">
+              <component class="icon" :is="item.icon"></component>
+            </el-icon>
             <p class="menu">{{ item.name }}</p>
           </router-link>
           <el-icon @click="closeTab(item, index)">

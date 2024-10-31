@@ -32,3 +32,13 @@ export const userSetMenu = (data) => {
 export const menuList = (params) => {
   return request.get("/menu/list", { params });//如果 params 不是一个对象，则需要使用 { params: params } 形式来确保传入的是一个有效的对象字面量
 };
+
+// 权限下拉列表
+export const menuSelectList = () => {
+  return request.get("/menu/selectList")
+}
+
+// 用户数据修改: 函数起名最简单的方式就是把接口名称拼接一下
+export const updataUser = (data) => {
+  return request.post("/update/user", data);
+}
