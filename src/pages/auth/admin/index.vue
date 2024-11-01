@@ -67,7 +67,7 @@
 <script setup>
 // 这个setup一定一定不能忘记写！不写setup的话，所有使用ref和reactive的变量都会是undefined
 import { ref, reactive, onMounted, nextTick } from 'vue'
-import { authAdmin, menuSelectList, updataUser } from '../../api'
+import { authAdmin, menuSelectList, updataUser } from '../../../api'
 import dayjs from 'dayjs'
 
 onMounted(() => {
@@ -162,8 +162,8 @@ const confirm = async (formEl) => {
     if (!formEl) return
     await formEl.validate((valid, fields) => {
         if (valid) {
-            const { name, permission_id } = form
-            updataUser({ name, permission_id }).then(({ data }) => {
+            const { name, permissions_id } = form
+            updataUser({ name, permissions_id }).then(({ data }) => {
                 if (data.code === 10000) {
                     dialogVisible.value = false
                     getList()

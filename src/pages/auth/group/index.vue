@@ -48,7 +48,7 @@
 <script setup>
 // 这个setup一定一定不能忘记写！不写setup的话，所有使用ref和reactive的变量都会是undefined
 import { ref, reactive, onMounted, nextTick } from 'vue'
-import { userGetMenu, userSetMenu, menuList } from '../../api'
+import { userGetMenu, userSetMenu, menuList } from '../../../api'
 
 
 onMounted(() => {

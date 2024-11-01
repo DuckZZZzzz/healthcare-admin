@@ -1,6 +1,7 @@
 const state = {
   isCollapse: false,
   selectMenu: [],
+  routerList: [],
 };
 
 const mutations = {
@@ -19,6 +20,28 @@ const mutations = {
     );
     // 通过索引删除数组中的元素
     state.selectMenu.splice(index, 1);
+  },
+  dynamicMenu(state, payload) {
+    // 通过glob导入文件
+    const modules = import.meta.glob("../pages/**/**/*.vue");
+    console.log(modules);
+    function routerSet(router) {
+      router.forEach((route) => {
+        // 没有子菜单，需要拼接路由数据
+        if (!route.children) {
+          const url = `../pages${route.meta.path}/index.vue`;
+          console.log(url, modules[url]);
+
+          // 拿到获取的vue组件
+          route.component = modules[url];
+        } else {
+          routerSet(route.children);
+        }
+      });
+    }
+    routerSet(payload);
+    // 拿到更新后的路由数据并赋值给state
+    state.routerList = payload;
   },
 };
 

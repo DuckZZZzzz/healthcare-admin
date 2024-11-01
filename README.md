@@ -42,8 +42,6 @@ Learn more about IDE Support for Vue in the [Vue Docs Scaling up Guide](https://
 输入 :q! 并回车来放弃编辑并退出。
 如果您想保存编辑并退出，可以输入 :wq 或者仅仅 :w 就足够了，因为您是在写入 commit message。
 
-
-
 ## 自定义单元格模板
 
 在 Vue.js 中，Element UI 提供了 `<el-table>` 组件来展示数据列表。通常情况下，表格中的每一列都会直接展示数据对象中的某个属性值。但是，有时候我们需要对这些数据进行格式化或者添加一些额外的操作，这时候就需要使用自定义单元格模板。
@@ -96,5 +94,22 @@ methods: {
   }
 }
 ```
-## markdown常用语法
+
+## markdown 常用语法
+
 [链接](https://lxblog.com/qianwen/share?shareId=8c469c32-4158-4c2b-826c-462f33108807)
+
+# 项目难点
+
+## 根据用户权限动态创建右侧菜单栏及动态路由
+1.创建项目结构
+2.加载基础路由结构
+3.登录服务器端实现
+4.登录获取token
+5.store与本地存储token
+6.路由权限登录判断
+7.用户权限获取
+8.路由比对方法
+9.路由权限配置完成
+10.拷贝UI结构
+11.路由权限管理完结

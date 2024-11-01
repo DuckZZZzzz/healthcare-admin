@@ -38,10 +38,11 @@
 </template>
 
 <script setup>
-import { ref, reactive } from 'vue';
-import { getCode, userAuthentication, login } from '../api';
+import { ref, reactive, computed } from 'vue';
+import { getCode, userAuthentication, login, menuPermissions } from '../../api';
 // import { ElMessage } from 'element-plus';
 import { useRouter } from 'vue-router';
+import { useStore } from 'vuex';
 
 const router = useRouter();
 const backgroundImage = '../../public/images/login-head.png';
@@ -128,6 +129,8 @@ const countdownChange = () => {
 
 // 表单提交
 const loginFormRef = ref();
+const store = useStore();
+const routerList = computed(() => store.state.menu.routerList)
 const submitForm = async (formEl) => {
     if (!formEl) return
     await formEl.validate((valid, fields) => {
@@ -151,6 +154,12 @@ const submitForm = async (formEl) => {
                         // 将token和用户信息缓存到浏览器
                         // data.data.userInfo是一个引用类型，不能直接存到localStorage，需要JSON.stringify
                         localStorage.setItem('pz_userInfo', JSON.stringify(data.data.userInfo))
+                        menuPermissions().then(({ data }) => {
+                            console.log(data.data)
+                            store.commit('dynamicMenu', data.data)
+                            console.log(routerList, 'routerList')
+                        })
+
                         router.push('/')
                     }
                 })
@@ -161,6 +170,10 @@ const submitForm = async (formEl) => {
         }
     })
 }
+
+
+
+
 </script>
 
 <style lang="less" scoped>

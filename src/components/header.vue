@@ -21,18 +21,14 @@
       </ul>
     </div>
     <div class="header-right">
-      <el-dropdown>
+      <el-dropdown @command="handleCommand">
         <div class="el-dropdown-link flex-box">
           <el-avatar src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png" />
           <p class="user-name">用户名</p>
         </div>
         <template #dropdown>
           <el-dropdown-menu>
-            <el-dropdown-item>Action 1</el-dropdown-item>
-            <el-dropdown-item>Action 2</el-dropdown-item>
-            <el-dropdown-item>Action 3</el-dropdown-item>
-            <el-dropdown-item disabled>Action 4</el-dropdown-item>
-            <el-dropdown-item divided>Action 5</el-dropdown-item>
+            <el-dropdown-item command="checkout">退出登录</el-dropdown-item>
           </el-dropdown-menu>
         </template>
       </el-dropdown>
@@ -70,6 +66,16 @@ const closeTab = (item, index) => {
       router.push("/");
       return;
     }
+  }
+}
+
+const handleCommand = (command) => {
+  if (command === "checkout") {
+    localStorage.removeItem("pz_token");
+    localStorage.removeItem("pz_userInfo");
+    
+
+    router.push("/login");
   }
 }
 </script>
