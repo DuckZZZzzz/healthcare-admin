@@ -1,5 +1,5 @@
 <template>
-    <PanelHead />
+    <PanelHead :route="route"/>
     <div class="btns">
         <el-button icon="Plus" size="small" type="primary" @click="openDialog(null)">新增</el-button>
     </div>
@@ -49,8 +49,9 @@
 // 这个setup一定一定不能忘记写！不写setup的话，所有使用ref和reactive的变量都会是undefined
 import { ref, reactive, onMounted, nextTick } from 'vue'
 import { userGetMenu, userSetMenu, menuList } from '../../../api'
+import {useRoute} from 'vue-router'
 
-
+const route = useRoute()
 onMounted(() => {
     // 获取菜单数据
     userGetMenu().then(({ data }) => {

@@ -38,7 +38,7 @@
 </template>
 
 <script setup>
-import { ref, reactive, computed } from 'vue';
+import { ref, reactive, computed, toRaw } from 'vue';
 import { getCode, userAuthentication, login, menuPermissions } from '../../api';
 // import { ElMessage } from 'element-plus';
 import { useRouter } from 'vue-router';
@@ -158,6 +158,12 @@ const submitForm = async (formEl) => {
                             console.log(data.data)
                             store.commit('dynamicMenu', data.data)
                             console.log(routerList, 'routerList')
+                            // 用toRaw方法把routerList转变成一个非响应式的数据
+                            toRaw(routerList.value).forEach(item => {
+                                router.addRoute('main', item)
+                                console.log(router)
+                            })
+                            router.push('/')
                         })
 
                         router.push('/')

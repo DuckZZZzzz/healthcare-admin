@@ -1,5 +1,5 @@
 <template>
-    <PanelHead />
+    <PanelHead :route = "route" />
     <el-table :data="tableData.list" stripe style="width: 100%">
         <el-table-column prop="id" label="ID" />
         <el-table-column prop="name" label="昵称" />
@@ -69,6 +69,9 @@
 import { ref, reactive, onMounted, nextTick } from 'vue'
 import { authAdmin, menuSelectList, updataUser } from '../../../api'
 import dayjs from 'dayjs'
+import {useRoute} from 'vue-router'
+
+const route = useRoute()
 
 onMounted(() => {
     // 获取管理员列表数据

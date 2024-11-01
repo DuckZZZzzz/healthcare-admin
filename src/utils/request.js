@@ -36,6 +36,7 @@ service.interceptors.response.use(
     if (response.data.code === -2) {
       localStorage.removeItem("pz_token");
       localStorage.removeItem("pz_userInfo");
+      localStorage.removeItem('pz_v3pz')
       // 获取当前页面的路由
       window.location.href = window.location.origin;
     }

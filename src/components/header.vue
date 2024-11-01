@@ -73,8 +73,7 @@ const handleCommand = (command) => {
   if (command === "checkout") {
     localStorage.removeItem("pz_token");
     localStorage.removeItem("pz_userInfo");
-    
-
+    localStorage.removeItem('pz_v3pz')
     router.push("/login");
   }
 }

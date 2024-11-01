@@ -16,8 +16,8 @@ Learn more about IDE Support for Vue in the [Vue Docs Scaling up Guide](https://
        name: [{ required: true, message: "请输入姓名", trigger: "blur" }];
      }
      ```
-     在这里，`name` 字段将被要求必须填写，否则会显示错误信息。
 
+     在这里，`name` 字段将被要求必须填写，否则会显示错误信息。
 2. **model**：
 
    - `model` 属性是用来绑定表单数据源的。通常情况下，我们会用一个 Vue 实例中的 data 对象来存储表单的数据。通过设置 `model` 属性为这个 data 对象，可以实现表单控件与数据的双向绑定。例如：
@@ -30,9 +30,10 @@ Learn more about IDE Support for Vue in the [Vue Docs Scaling up Guide](https://
        };
      }
      ```
-     然后在模板中通过 `:model="ruleForm"` 绑定到 `el-form` 上。
 
+     然后在模板中通过 `:model="ruleForm"` 绑定到 `el-form` 上。
 3. **ref**：
+
    - `ref` 是 Vue 提供的一个特性，用于给元素或子组件注册引用信息。通过设置 `ref` 属性，可以在父组件中访问到子组件或元素实例，这对于调用子组件的方法或访问其属性非常有用。比如，你可以通过 `this.$refs.ruleFormRef.validate()` 来触发整个表单的验证。
 
 ## 在终端中退出 vim
@@ -102,6 +103,7 @@ methods: {
 # 项目难点
 
 ## 根据用户权限动态创建右侧菜单栏及动态路由
+
 1.创建项目结构
 2.加载基础路由结构
 3.登录服务器端实现
@@ -113,3 +115,5 @@ methods: {
 9.路由权限配置完成
 10.拷贝UI结构
 11.路由权限管理完结
+
+创建并添加完动态路由后，如果页面刷新，routerList数据就会销毁掉，因此需要使用插件：vuex-persistedstate来保持数据的持久化
