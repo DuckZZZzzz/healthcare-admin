@@ -1,5 +1,5 @@
 <template>
-    <PanelHead :route="route"/>
+    <PanelHead :route="route" />
     <div class="btns">
         <el-button icon="Plus" size="small" type="primary" @click="openDialog(null)">新增</el-button>
     </div>
@@ -49,9 +49,8 @@
 // 这个setup一定一定不能忘记写！不写setup的话，所有使用ref和reactive的变量都会是undefined
 import { ref, reactive, onMounted, nextTick } from 'vue'
 import { userGetMenu, userSetMenu, menuList } from '../../../api'
-import {useRoute} from 'vue-router'
+import { useRoute } from 'vue-router'
 
-const route = useRoute()
 onMounted(() => {
     // 获取菜单数据
     userGetMenu().then(({ data }) => {
@@ -62,6 +61,7 @@ onMounted(() => {
     getList()
 })
 
+const route = useRoute()
 // 列表数据
 const tableData = reactive({
     list: [],
@@ -71,17 +71,8 @@ const tableData = reactive({
 // 打开弹窗
 const openDialog = (rowData = {}) => {
     dialogVisible.value = true
-    // 难点：弹窗打开，form的生成是异步的
-    // 解决方法1：弹窗打开时，先清空form，再赋值，再打开弹窗
-    // form.name = ""
-    // form.permissions = ""
-    // form.id = ""
-    // 打开弹窗时，获取树形菜单数据
-    // userGetMenu().then(({ data }) => {
-    // console.log(data)
-    // permissionData.value = data.data
-    // })
-    // 解决方法2：引入nextTick
+    // 难点：弹窗打开，JavaScript 的机制决定了 DOM 更新是异步的，这包括表单元素的生成，如果不使用 nextTick，treeRef 可能还没有生成，导致无法正确设置选中的节点。
+    // 解决方法：引入nextTick
     nextTick(() => {
         if (rowData) {
             console.log(rowData)
@@ -172,6 +163,7 @@ const confirm = async (formEl) => {
         }
     })
 }
+
 </script>
 
 <style lang="less" scoped>

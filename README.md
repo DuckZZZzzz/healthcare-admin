@@ -11,6 +11,7 @@ Learn more about IDE Support for Vue in the [Vue Docs Scaling up Guide](https://
 1. **rules**：
 
    - 这个属性是用来定义表单验证规则的。它是一个对象，包含多个字段及其对应的验证规则（如必填检查、格式检查等）。当表单需要进行验证逻辑时，就会用到这个属性。例如：
+
      ```javascript
      rules: {
        name: [{ required: true, message: "请输入姓名", trigger: "blur" }];
@@ -18,9 +19,11 @@ Learn more about IDE Support for Vue in the [Vue Docs Scaling up Guide](https://
      ```
 
      在这里，`name` 字段将被要求必须填写，否则会显示错误信息。
+
 2. **model**：
 
    - `model` 属性是用来绑定表单数据源的。通常情况下，我们会用一个 Vue 实例中的 data 对象来存储表单的数据。通过设置 `model` 属性为这个 data 对象，可以实现表单控件与数据的双向绑定。例如：
+
      ```javascript
      data() {
        return {
@@ -32,6 +35,7 @@ Learn more about IDE Support for Vue in the [Vue Docs Scaling up Guide](https://
      ```
 
      然后在模板中通过 `:model="ruleForm"` 绑定到 `el-form` 上。
+
 3. **ref**：
 
    - `ref` 是 Vue 提供的一个特性，用于给元素或子组件注册引用信息。通过设置 `ref` 属性，可以在父组件中访问到子组件或元素实例，这对于调用子组件的方法或访问其属性非常有用。比如，你可以通过 `this.$refs.ruleFormRef.validate()` 来触发整个表单的验证。
@@ -104,16 +108,8 @@ methods: {
 
 ## 根据用户权限动态创建右侧菜单栏及动态路由
 
-1.创建项目结构
-2.加载基础路由结构
-3.登录服务器端实现
-4.登录获取token
-5.store与本地存储token
-6.路由权限登录判断
-7.用户权限获取
-8.路由比对方法
-9.路由权限配置完成
-10.拷贝UI结构
-11.路由权限管理完结
+1.创建项目结构 2.加载基础路由结构 3.登录服务器端实现 4.登录获取 token
+5.store 与本地存储 token 6.路由权限登录判断 7.用户权限获取 8.路由比对方法 9.路由权限配置完成 10.拷贝 UI 结构 11.路由权限管理完结
 
-创建并添加完动态路由后，如果页面刷新，routerList数据就会销毁掉，因此需要使用插件：vuex-persistedstate来保持数据的持久化
+创建并添加完动态路由后，如果页面刷新，routerList 数据就会销毁掉，因此需要使用插件：vuex-persistedstate 来保持数据的持久化
+如果没有使用 vuex-persistedstate 插件或者其他类似的持久化存储插件，Vuex 的数据在页面刷新时会重新初始化。这是因为 Vuex 的状态存储在内存中，当页面刷新时，内存中的数据会被重置，导致 Vuex 的状态也被重置。

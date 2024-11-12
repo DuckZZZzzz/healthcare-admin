@@ -91,9 +91,9 @@ const getList = () => {
         const { list, total } = data.data
         list.forEach(item => {
             item.create_time = dayjs(item.create_time).format('YYYY-MM-DD')
-            tableData.list = list
-            tableData.total = total
         })
+        tableData.list = list
+        tableData.total = total
     })
 }
 

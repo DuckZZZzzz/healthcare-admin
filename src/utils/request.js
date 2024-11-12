@@ -36,7 +36,10 @@ service.interceptors.response.use(
     if (response.data.code === -2) {
       localStorage.removeItem("pz_token");
       localStorage.removeItem("pz_userInfo");
-      localStorage.removeItem('pz_v3pz')
+      localStorage.removeItem('pz_v3pz')// 这个数据是通过vuex-persistant插件存储的，需要手动清除
+      // 清除token后，跳转到登录页面
+      // 这里的window.location.href是为了重新加载页面，因为在登录页面的beforeRouteEnter守卫中，我们会判断是否有token，如果有token就会跳转到首页，所以需要重新加载页面，这样就会跳转到登录页面
+
       // 获取当前页面的路由
       window.location.href = window.location.origin;
     }
