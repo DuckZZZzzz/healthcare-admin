@@ -1,10 +1,13 @@
-const localData = localStorage.getItem('pz_v3pz')
+// 获取之前用vuex-persistedstate插件存储的数据, 没有数据就返回空对象
+const localData = localStorage.getItem("pz_v3pz");
 
-const state = localData ?  localData : {
-  isCollapse: false,
-  selectMenu: [],
-  routerList: [],
-};
+const state = localData
+  ? localData
+  : {
+      isCollapse: false,
+      selectMenu: [],
+      routerList: [],
+    };
 
 const mutations = {
   collapseMenu(state) {

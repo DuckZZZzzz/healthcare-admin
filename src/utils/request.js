@@ -9,18 +9,20 @@ const service = axios.create({
 // 添加请求拦截器
 service.interceptors.request.use(
   function (config) {
-    // 在发送请求之前做些什么
+    // 获取token
     const token = localStorage.getItem("pz_token");
-    // 不需要添加token的api
+    // 定义不需要添加token的API白名单
     const whiteList = ["/get/code", "/user/authentication", "/login"];
-    if (token || whiteList.includes(config.url)) {
-      // x-token是文档中要求的请求头的名称
+
+    // 如果token存在且当前请求不在白名单中，则添加token到请求头
+    if (token && !whiteList.includes(config.url)) {
       config.headers["x-token"] = token;
     }
+
     return config;
   },
   function (error) {
-    // 对请求错误做些什么
+    // 处理请求错误
     return Promise.reject(error);
   }
 );
@@ -36,7 +38,7 @@ service.interceptors.response.use(
     if (response.data.code === -2) {
       localStorage.removeItem("pz_token");
       localStorage.removeItem("pz_userInfo");
-      localStorage.removeItem('pz_v3pz')// 这个数据是通过vuex-persistant插件存储的，需要手动清除
+      localStorage.removeItem("pz_v3pz"); // 这个数据是通过vuex-persistant插件存储的，需要手动清除
       // 清除token后，跳转到登录页面
       // 这里的window.location.href是为了重新加载页面，因为在登录页面的beforeRouteEnter守卫中，我们会判断是否有token，如果有token就会跳转到首页，所以需要重新加载页面，这样就会跳转到登录页面
 
