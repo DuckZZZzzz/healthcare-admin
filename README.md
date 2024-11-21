@@ -113,3 +113,7 @@ methods: {
 
 创建并添加完动态路由后，如果页面刷新，routerList 数据就会销毁掉，因此需要使用插件：vuex-persistedstate 来保持数据的持久化
 如果没有使用 vuex-persistedstate 插件或者其他类似的持久化存储插件，Vuex 的数据在页面刷新时会重新初始化。这是因为 Vuex 的状态存储在内存中，当页面刷新时，内存中的数据会被重置，导致 Vuex 的状态也被重置。
+
+## resetState 的作用
+
+我发现退出登录时虽然用了 localStorage.remove 方法，但由于 vuex-persistedstate 的机制或者浏览器本身的其他什么原因，其实是没有清空的，表现在退出登录时如果不刷新就重新登录，浏览器还会保留上一次退出时的浏览痕迹，比如我上一次的 selectedmenu 在重新登录时应该被清空但实际没有，所以我在退出登录时用了 resetState 方法，这个方法是用来重置 Vuex 中的数据的。

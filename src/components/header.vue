@@ -75,6 +75,7 @@ const handleCommand = (command) => {
     localStorage.removeItem("pz_userInfo");
     localStorage.removeItem('pz_v3pz')
     router.push("/login");
+    store.commit('resetState');
   }
 }
 </script>

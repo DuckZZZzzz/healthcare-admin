@@ -48,6 +48,12 @@ const mutations = {
     // 拿到更新后的路由数据并赋值给state
     state.routerList = payload;
   },
+  resetState(state) {
+    // 将 state 重置为初始状态
+    state.isCollapse = false;
+    state.selectMenu = [];
+    state.routerList = [];
+  },
 };
 
 export default {
