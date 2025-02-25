@@ -144,6 +144,7 @@ router.beforeEach((to, from, next) => {
     const token = localStorage.getItem("pz_token");
     if (token) {
       next();
+      // 接下来到所去的页面会发请求，请求头会进行token的验证的
     } else {
       next("/login");
     }

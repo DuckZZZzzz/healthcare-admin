@@ -29,6 +29,7 @@ const mutations = {
   dynamicMenu(state, payload) {
     // 通过glob导入文件
     const modules = import.meta.glob("../pages/**/**/*.vue");
+    // vite的glob方法拿到所有的pages，根据名称匹配然后拼接到动态路由的数据里
     console.log(modules);
     function routerSet(router) {
       router.forEach((route) => {

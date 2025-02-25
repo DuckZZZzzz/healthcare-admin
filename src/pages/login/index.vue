@@ -161,6 +161,7 @@ const submitForm = async (formEl) => {
                             // 用toRaw方法把routerList转变成一个非响应式的数据
                             toRaw(routerList.value).forEach(item => {
                                 router.addRoute('main', item)
+                                // 这里就相当于在router文件中添加了路由
                                 console.log(router)
                             })
                             router.push('/')
