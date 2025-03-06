@@ -45,7 +45,7 @@ import { useRouter } from 'vue-router';
 import { useStore } from 'vuex';
 
 const router = useRouter();
-const backgroundImage = '../../public/images/login-head.png';
+const backgroundImage = 'images/login-head.png';
 // 默认登录页，切换到注册页面
 const showRegisterPage = ref(false);
 const switchToRegister = () => {

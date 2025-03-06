@@ -2,7 +2,7 @@ import axios from "axios";
 import { ElMessage } from "element-plus";
 
 const service = axios.create({
-  baseURL: "https:/v3pz.itndedu.com/v3pz",
+  baseURL: "https://v3pz.itndedu.com/v3pz",
   timeout: 5000,
 });
 
