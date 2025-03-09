@@ -39,11 +39,11 @@ import { defineProps } from 'vue';
 import { useRouter } from 'vue-router';
 import { useStore } from 'vuex';
 
-
 const props = defineProps({
   menuData: Array,
   index: String
 });
+console.log('treeMenu.vue', props.menuData);
 
 const router = useRouter();
 

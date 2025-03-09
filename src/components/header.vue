@@ -23,8 +23,8 @@
     <div class="header-right">
       <el-dropdown @command="handleCommand">
         <div class="el-dropdown-link flex-box">
-          <el-avatar src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png" />
-          <p class="user-name">用户名</p>
+          <el-avatar :src="avatarUrl" />
+          <p class="user-name">{{ userName }}</p>
         </div>
         <template #dropdown>
           <el-dropdown-menu>
@@ -48,7 +48,7 @@ const router = useRouter();
 const selectMenu = computed(() => store.state.menu.selectMenu);
 
 const closeTab = (item, index) => {
-  store.commit("closeMenu", item);
+  store.commit("closeMenu", index);
   // 删除的不是当前选中项
   if (item.path !== route.path) {
     return;
@@ -73,11 +73,15 @@ const handleCommand = (command) => {
   if (command === "checkout") {
     localStorage.removeItem("pz_token");
     localStorage.removeItem("pz_userInfo");
-    localStorage.removeItem('pz_v3pz')
+    localStorage.removeItem("pz_v3pz");
     router.push("/login");
-    store.commit('resetState');
+    // store.commit('resetState');
   }
 }
+const defaultAvatarUrl = 'https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png';
+const userInfo = JSON.parse(localStorage.getItem("pz_userInfo")) || {};
+const avatarUrl = userInfo.avatar || defaultAvatarUrl;
+const userName = userInfo.name || "用户名";
 </script>
 
 <style lang="less" scoped>

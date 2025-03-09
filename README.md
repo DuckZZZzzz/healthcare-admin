@@ -1,8 +1,157 @@
-# Vue 3 + Vite
+# healthcare-admin
 
-This template should help get you started developing with Vue 3 in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+## 简介
 
-Learn more about IDE Support for Vue in the [Vue Docs Scaling up Guide](https://vuejs.org/guide/scaling-up/tooling.html#ide-support).
+healthcare-admin 是一个基于 Vue 3 和 Element Plus 的后台管理系统。它具有以下特点：
+
+- 动态路由：根据用户权限动态创建右侧菜单栏及动态路由。
+- 权限管理：包括账号管理和菜单管理。
+- 陪诊管理：包括陪护管理和订单管理。
+- 登录与退出：支持用户登录和退出功能。
+
+## 功能
+
+- 动态路由：根据用户权限动态创建右侧菜单栏及动态路由。
+- 权限管理：包括账号管理和菜单管理。
+- 陪诊管理：包括陪护管理和订单管理。
+- 登录与退出：支持用户登录和退出功能。
+
+## 目录结构
+
+```
+healthcare-admin/
+├── .eslintrc.js
+├── deploy.sh
+├── package.json
+├── public
+│   └── images
+├── README.md
+├── src
+│   ├── api
+│   │   └── index.js
+│   ├── App.vue
+│   ├── assets
+│   ├── components
+│   │   ├── aside.vue
+│   │   ├── header.vue
+│   │   ├── panelHead.vue
+│   │   └── treeMenu.vue
+│   ├── main.js
+│   ├── pages
+│   │   ├── auth
+│   │   │   ├── admin
+│   │   │   │   └── index.vue
+│   │   │   └── group
+│   │   │       └── index.vue
+│   │   ├── dashboard
+│   │   │   └── index.vue
+│   │   ├── login
+│   │   │   └── index.vue
+│   │   ├── Main.vue
+│   │   └── vppz
+│   │       ├── order
+│   │       │   └── index.vue
+│   │       └── staff
+│   │           └── index.vue
+│   ├── router
+│   │   └── index.js
+│   ├── store
+│   │   ├── index.js
+│   │   └── menu.js
+│   └── utils
+│       └── request.js
+└── vite.config.js
+```
+
+## 安装
+
+1. 克隆项目到本地
+
+```bash
+git clone https://github.com/DuckZZZzzz/healthcare-admin-page.git
+```
+
+2. 进入项目目录
+
+```bash
+cd healthcare-admin-page
+```
+
+3. 安装依赖
+
+```bash
+npm install
+```
+
+4. 启动项目
+
+```bash
+npm run dev
+```
+
+## 部署
+
+1. 打包项目
+
+```bash
+npm run build
+```
+
+2. 进入 dist 目录
+
+```bash
+cd dist
+```
+
+3. 初始化 git 仓库
+
+```bash
+git init
+```
+
+4. 添加文件到 git 仓库
+
+```bash
+git add .
+```
+
+5. 提交代码
+
+```bash
+git commit -m "deploy"
+```
+
+6. 添加远程仓库
+
+```bash
+git remote add origin git@github.com:DuckZZZzzz/healthcare-admin-page.git
+```
+
+7. 推送代码到远程仓库
+
+```bash
+git push origin master -f -u
+```
+
+8. 打开浏览器访问
+
+```bash
+https://duckzzzzzz.github.io/healthcare-admin-page/
+```
+
+## 注意事项
+
+- 请确保你已经安装了 Node.js 和 npm。
+- 在部署项目之前，请确保你已经修改了 `deploy.sh` 脚本中的远程仓库地址。
+- 在部署项目之前，请确保你已经修改了 `vite.config.js` 中的 `base` 配置项。
+
+## 贡献
+
+如果你有任何建议或想要贡献代码，请随时提交 Pull Request 或创建 Issue。
+
+## 许可证
+
+本项目采用 MIT 许可证。有关详细信息，请查看 LICENSE 文件。
 
 # 开发笔记
 
@@ -38,7 +187,7 @@ Learn more about IDE Support for Vue in the [Vue Docs Scaling up Guide](https://
 
 3. **ref**：
 
-   - `ref` 是 Vue 提供的一个特性，用于给元素或子组件注册引用信息。通过设置 `ref` 属性，可以在父组件中访问到子组件或元素实例，这对于调用子组件的方法或访问其属性非常有用。比如，你可以通过 `this.$refs.ruleFormRef.validate()` 来触发整个表单的验证。
+   - `ref` 是 Vue 提供的一个特性，用于给元素或子组件注册引用信息。通过设置 `ref` 属性，可以在父组件中访问到子组件或元素实例，这对于调用子组件的方法或访问其属性非常有用。比如，你可以通过 `this.$refs.ruleFormRef.validate()` 来触发整个表单的验证。在这个项目中ref只起到一个拿到实例进行表单校验的作用。
 
 ## 在终端中退出 vim
 
@@ -116,4 +265,9 @@ methods: {
 
 ## resetState 的作用
 
-我发现退出登录时虽然用了 localStorage.remove 方法，但由于 vuex-persistedstate 的机制或者浏览器本身的其他什么原因，其实是没有清空的，表现在退出登录时如果不刷新就重新登录，浏览器还会保留上一次退出时的浏览痕迹，比如我上一次的 selectedmenu 在重新登录时应该被清空但实际没有，所以我在退出登录时用了 resetState 方法，这个方法是用来重置 Vuex 中的数据的。
+我发现退出登录时虽然用了 localStorage.remove 方法，但由于 vuex-persistedstate 的机制或者浏览器本身的其他什么原因，其实是没有清空的，表现在退出登录时如果不刷新就重新登录，浏览器还会保留上一次退出时的浏览痕迹，比如我上一次的 selectedmenu 在重新登录时应该被清空但实际没有，所以我在退出登录时用了 resetState 方法，这个方法是用来重置 Vuex 中的数据的。使用这个方法后，退出登录时，Vuex 中的数据会被重置，包括 selectedmenu，这样重新登录时就不会保留上一次的浏览痕迹了。但是产生了新的问题就是，我退出登录后，vppz的数据并没有被remove，这就导致在开发时会经常报错说找不到路由，权衡了之后我删除了ressetState方法。
+
+
+### 倒计时在后台被暂停的解决办法
+1. 每次更新倒计时时，使用当前系统时间与预设的结束时间计算剩余时间，而非依赖定时器的累计递减，确保时间准确性。
+2. 

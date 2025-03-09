@@ -103,8 +103,12 @@ const countdownChange = () => {
     // 未发送，先判断手机号是否正确
     const phoneReg = /^1[3-9]\d{9}$/;
     const passwordReg = /^[A-Za-z0-9_]{4,12}$/;
-    if (!loginForm.userName || !phoneReg.test(loginForm.userName) || !loginForm.passWord || !passwordReg.test(loginForm.passWord)) {
+    if (!loginForm.userName || !phoneReg.test(loginForm.userName)) {
         return ElMessage({ message: '请输入正确的手机号', type: 'error' });
+    }
+    if( !loginForm.passWord || !passwordReg.test(loginForm.passWord)) {
+        return ElMessage({ message: '请输入符合规范的密码', type: 'error' });
+
     }
     // 校验成功，倒计时
     timer = setInterval(() => {

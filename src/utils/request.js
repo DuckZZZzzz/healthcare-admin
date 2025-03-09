@@ -6,7 +6,7 @@ const service = axios.create({
   timeout: 5000,
 });
 
-// 添加请求拦截器
+// 添加请求拦截器：添加header如token等
 service.interceptors.request.use(
   function (config) {
     // 获取token
@@ -27,10 +27,11 @@ service.interceptors.request.use(
   }
 );
 
-// 添加响应拦截器
+// 添加响应拦截器：处理接口异常，非200的状态码
 service.interceptors.response.use(
   function (response) {
     // 接口异常的时候给用户发送提示
+    // response.data.code === -1 意味着无法获取到有效的HTTP响应状态码，比如网络断开，或者服务器宕机等
     // response.data.code === -1 是为了捕捉并处理那些尽管 HTTP 请求成功但应用层仍然认为是错误的情况
     if (response.data.code === -1) {
       ElMessage.warning(response.data.message);

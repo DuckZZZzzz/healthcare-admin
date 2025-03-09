@@ -15,7 +15,7 @@
         <el-table-column prop="name" label="昵称" />
         <el-table-column prop="avatar" label="头像">
             <template #default="scope">
-                <el-image style="width: 50px; height: 50px;" :src="scope.row.avatar" />
+                <el-image style="width: 50px; height: 50px;" :src="scope.row.avatar.replace('http://159.75.169.224:5500/', 'images/')" />
             </template>
         </el-table-column>
         <el-table-column prop="age" label="年龄" />

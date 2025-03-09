@@ -75,10 +75,9 @@ const openDialog = (rowData = {}) => {
     // 解决方法：引入nextTick
     nextTick(() => {
         if (rowData) {
-            console.log(rowData)
+            console.log(rowData, form)
             Object.assign(form, { id: rowData.id, name: rowData.name })
             treeRef.value.setCheckedKeys(rowData.permission)
-
         }
     })
 }

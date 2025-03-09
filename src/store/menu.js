@@ -19,12 +19,12 @@ const mutations = {
       state.selectMenu.push(payload);
   },
   closeMenu(state, payload) {
-    // 找到点击导航按钮的索引
-    const index = state.selectMenu.findIndex(
-      (val) => val.name === payload.name
-    );
+    // 找到点击导航按钮的索引 二刷发现没必要啊！！
+    // const index = state.selectMenu.findIndex(
+    //   (val) => val.name === payload.name
+    // );
     // 通过索引删除数组中的元素
-    state.selectMenu.splice(index, 1);
+    state.selectMenu.splice(payload, 1);
   },
   dynamicMenu(state, payload) {
     // 通过glob导入文件
@@ -39,7 +39,7 @@ const mutations = {
           console.log(url, modules[url]);
 
           // 拿到获取的vue组件
-          route.component = modules[url];
+          route.component = modules[url]();
         } else {
           routerSet(route.children);
         }
@@ -49,12 +49,12 @@ const mutations = {
     // 拿到更新后的路由数据并赋值给state
     state.routerList = payload;
   },
-  resetState(state) {
-    // 将 state 重置为初始状态
-    state.isCollapse = false;
-    state.selectMenu = [];
-    state.routerList = [];
-  },
+  // resetState(state) {
+  //   // 将 state 重置为初始状态
+  //   state.isCollapse = false;
+  //   state.selectMenu = [];
+  //   state.routerList = [];
+  // },
 };
 
 export default {
