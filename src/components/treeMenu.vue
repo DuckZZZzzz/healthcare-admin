@@ -1,14 +1,12 @@
 <template>
-  <!-- 如果直接把这个template带v-for作为模板标签，会报错：‘children is not defined’ -->
-  <!-- 因此外面加上一层template，不能用div来代替，会影响组件的expand和collapse的正常展示 -->
   <template
     v-for="item in props.menuData"
-    :key="`${props.index}-${item.meta?.id}`"
+    :key="item.name"
   >
     <el-menu-item
-      @click="handleClick(item, `${props.index}-${item.meta?.id}-item`)"
+      @click="handleClick(item, item.meta.path)"
       v-if="!item.children || item.children.length === 0"
-      :index="`${props.index}-${item.meta?.id}`"
+      :index="item.meta.path"
     >
       <el-icon size="20">
         <component :is="item.meta?.icon"></component>
@@ -18,7 +16,7 @@
 
     <el-sub-menu
       v-else
-      :index="`${props.index}-${item.meta?.id}`"
+      :index="item.name"
     >
       <template #title>
         <el-icon size="20">
@@ -27,7 +25,6 @@
         <span>{{ item.meta?.name }}</span>
       </template>
       <treeMenu
-        :index="`${props.index}-${item.meta?.id}`"
         :menuData="item.children || []"
       />
     </el-sub-menu>
@@ -41,7 +38,6 @@ import { useStore } from 'vuex';
 
 const props = defineProps({
   menuData: Array,
-  index: String
 });
 console.log('treeMenu.vue', props.menuData);
 
@@ -49,10 +45,12 @@ const router = useRouter();
 
 const store = useStore();
 
-const handleClick = (item, activeItem) => {
+const handleClick = (item, activeMenu) => {
+  console.log('handleClick', item, activeMenu);
   if (item.meta && item.meta.path) {
     store.commit('addMenu', item.meta)
     router.push(item.meta.path);
+    store.commit('changeActiveMenu', activeMenu);
   } else {
     console.error('Invalid path or meta information:', item);
   }

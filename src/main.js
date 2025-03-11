@@ -29,10 +29,10 @@ for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
 
 app.component('PanelHead',PanelHead)
 
-// 路由挂载
-app.use(router)
 // store挂载
 app.use(store)
+// 路由挂载
+app.use(router)
 app.mount('#app')
 
 

@@ -6,6 +6,7 @@ import Group from "../pages/auth/group/index.vue";
 import Staff from "../pages/vppz/staff/index.vue";
 import Order from "../pages/vppz/order/index.vue";
 import Login from "../pages/login/index.vue";
+import store from "../store/index.js";
 
 // 当 path 直接作为一个属性存在时，它通常表示一个绝对路径或者是相对于应用根目录的路径
 // 当 path 放在 meta 对象中时，这些信息不会影响路由匹配，但可以用来传递额外的信息
@@ -150,5 +151,8 @@ router.beforeEach((to, from, next) => {
     }
   }
 });
-
+router.afterEach((to) => {
+  console.log(store);
+  store.commit("changeActiveMenu", to.path);
+});
 export default router;

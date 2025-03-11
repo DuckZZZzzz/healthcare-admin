@@ -7,6 +7,7 @@ const state = localData
       isCollapse: false,
       selectMenu: [],
       routerList: [],
+      activeMenu: '/dashboard'
     };
 
 const mutations = {
@@ -55,6 +56,9 @@ const mutations = {
   //   state.selectMenu = [];
   //   state.routerList = [];
   // },
+  changeActiveMenu(state, payload) {
+    state.activeMenu = payload;
+  }
 };
 
 export default {

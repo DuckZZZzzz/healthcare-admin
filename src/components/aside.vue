@@ -1,11 +1,12 @@
 <template>
 <el-menu
 :style="{width: !isCollapse ? '230px' : '64px'}"
-    default-active="2"
+    :default-active="activeMenu"
     class="aside-box dark-mode"
     :collapse="isCollapse"
     @open="handleOpen"
     @close="handleClose"
+    :router="true"
   >
   <p class="title" >Duck <span v-show="!isCollapse">陪诊</span></p>
     <TreeMenu :menuData="menuData || []" index="1" />
@@ -28,6 +29,9 @@ import { useStore } from "vuex";
 const router = useRouter();
 // const menuData = reactive(router.options.routes[0].children)
 const store = useStore()
+const activeMenu = computed(() => {
+  return store.state.menu.activeMenu
+})
 const menuData = computed(() => store.state.menu.routerList)
 const isCollapse = computed(() => store.state.menu.isCollapse)
 
