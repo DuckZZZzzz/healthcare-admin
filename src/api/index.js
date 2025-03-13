@@ -76,3 +76,8 @@ export const adminOrder = (params) => {
 export const updateOrder = (data) => {
   return request.post("/update/order", data);
 }
+
+// 拿到控制台数据
+export const getControlData = (params={}) => {
+  return request.get('/report', { params })
+}
