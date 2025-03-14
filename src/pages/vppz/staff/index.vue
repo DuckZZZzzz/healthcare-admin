@@ -15,7 +15,7 @@
         <el-table-column prop="name" label="昵称" />
         <el-table-column prop="avatar" label="头像">
             <template #default="scope">
-                <el-image style="width: 50px; height: 50px;" :src="scope.row.avatar.replace('http://159.75.169.224:5500/', 'images/')" />
+                <el-image style="width: 50px; height: 50px;" :src="scope.row.avatar" />
             </template>
         </el-table-column>
         <el-table-column prop="age" label="年龄" />
@@ -123,9 +123,7 @@ import { photoList, companion, companionList, deleteCompanion } from '../../../a
 import dayjs from 'dayjs'
 
 onMounted(() => {
-    photoList().then(({ data }) => {
-        imgList.value = data.data
-    })
+
     getList()
 })
 
@@ -146,7 +144,14 @@ const route = useRoute()
 const dialogVisible = ref(false)
 const dialogImgVisible = ref(false)
 const selectedImg = ref(0)
-const imgList = ref([])
+const imgList = [
+    {name: 'images/1.jpeg', url: 'images/1.jpeg'},
+    {name: 'images/2.jpeg', url: 'images/2.jpeg'},
+    {name: 'images/3.jpeg', url: 'images/3.jpeg'},
+    {name: 'images/4.jpeg', url: 'images/4.jpeg'},
+    {name: 'images/5.jpeg', url: 'images/5.jpeg'},
+    {name: 'images/6.jpeg', url: 'images/6.jpeg'},
+]
 const selectTableData = ref([])
 
 // 请求列表
@@ -161,7 +166,7 @@ const getList = () => {
     })
 }
 const confirmImg = () => {
-    form.avatar = imgList.value[selectedImg.value].url
+    form.avatar = imgList[selectedImg.value].url
     dialogImgVisible.value = false
 }
 const beforeClose = () => {
