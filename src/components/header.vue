@@ -23,7 +23,7 @@
     <div class="header-right">
       <el-dropdown @command="handleCommand">
         <div class="el-dropdown-link flex-box">
-          <el-avatar :src="avatarUrl" />
+          <el-avatar src="images/avatar.jpeg" />
           <p class="user-name">{{ userName }}</p>
         </div>
         <template #dropdown>
@@ -78,9 +78,7 @@ const handleCommand = (command) => {
     // store.commit('resetState');
   }
 }
-const defaultAvatarUrl = 'https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png';
 const userInfo = JSON.parse(localStorage.getItem("pz_userInfo")) || {};
-const avatarUrl = userInfo.avatar || defaultAvatarUrl;
 const userName = userInfo.name || "用户名";
 </script>
 
