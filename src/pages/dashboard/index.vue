@@ -6,7 +6,7 @@
                 <el-card class="user-card">
                     <template #header>
                         <div class="card-header">
-                            <el-image :src="user.user_img" />
+                            <el-image src="images/avatar.jpeg" />
                             <span>{{ user.user_name }}</span>
                         </div>
                     </template>

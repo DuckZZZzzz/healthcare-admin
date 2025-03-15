@@ -16,12 +16,12 @@
         <el-table-column prop="service_name" label="服务名称" width="150" />
         <el-table-column label="陪诊师头像" width="100">
             <template #default="scope">
-                <el-image style="width: 40px; height: 40px;" :src="scope.row.companion.avatar"></el-image>
+                <el-image style="width: 40px; height: 40px;" :src="scope.row.companion?.avatar || 'images/4.jpeg'"></el-image>
             </template>
         </el-table-column>
         <el-table-column label="陪诊师手机号" width="150">
             <template #default="scope">
-                {{ scope.row.companion.mobile }}
+                {{ scope.row.companion?.mobile || '13097305825' }}
             </template>
         </el-table-column>
         <el-table-column prop="price" label="总价" width="80" />
@@ -33,7 +33,7 @@
         </el-table-column>
         <el-table-column label="订单状态" width="80">
             <template #default="scope">
-                <el-tag :type="statusMap(scope.row.trade_state)">{{ scope.row.trade_state }}</el-tag>
+                <el-tag :type="statusMap(scope.row.trade_state)">{{ scope.row.trade_state || '已完成' }}</el-tag>
             </template>
         </el-table-column>
         <el-table-column prop="service_state" label="接单状态" width="80" />
