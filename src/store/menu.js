@@ -40,7 +40,7 @@ const mutations = {
           console.log(url, modules[url]);
 
           // 拿到获取的vue组件
-          route.component = modules[url]();
+          route.component = modules[url];
         } else {
           routerSet(route.children);
         }
