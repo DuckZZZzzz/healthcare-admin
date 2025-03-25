@@ -145,12 +145,12 @@ const dialogVisible = ref(false)
 const dialogImgVisible = ref(false)
 const selectedImg = ref(0)
 const imgList = [
-    {name: 'images/1.jpeg', url: 'images/1.jpeg'},
-    {name: 'images/2.jpeg', url: 'images/2.jpeg'},
-    {name: 'images/3.jpeg', url: 'images/3.jpeg'},
-    {name: 'images/4.jpeg', url: 'images/4.jpeg'},
-    {name: 'images/5.jpeg', url: 'images/5.jpeg'},
-    {name: 'images/6.jpeg', url: 'images/6.jpeg'},
+    {name: 'images/1.webp', url: 'images/1.webp'},
+    {name: 'images/2.webp', url: 'images/2.webp'},
+    {name: 'images/3.webp', url: 'images/3.webp'},
+    {name: 'images/4.webp', url: 'images/4.webp'},
+    {name: 'images/5.webp', url: 'images/5.webp'},
+    {name: 'images/6.webp', url: 'images/6.webp'},
 ]
 const selectTableData = ref([])
 

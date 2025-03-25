@@ -23,7 +23,7 @@
     <div class="header-right">
       <el-dropdown @command="handleCommand">
         <div class="el-dropdown-link flex-box">
-          <el-avatar src="images/avatar.jpeg" />
+          <el-avatar src="images/avatar.webp" />
           <p class="user-name">{{ userName }}</p>
         </div>
         <template #dropdown>

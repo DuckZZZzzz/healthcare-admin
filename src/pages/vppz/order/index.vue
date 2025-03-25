@@ -16,7 +16,7 @@
         <el-table-column prop="service_name" label="服务名称" width="150" />
         <el-table-column label="陪诊师头像" width="100">
             <template #default="scope">
-                <el-image style="width: 40px; height: 40px;" :src="scope.row.companion?.avatar || 'images/4.jpeg'"></el-image>
+                <el-image style="width: 40px; height: 40px;" :src="scope.row.companion?.avatar || 'images/4.webp'"></el-image>
             </template>
         </el-table-column>
         <el-table-column label="陪诊师手机号" width="150">
