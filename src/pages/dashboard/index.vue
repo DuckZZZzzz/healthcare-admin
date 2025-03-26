@@ -37,7 +37,7 @@
 
 <script setup>
 import { ref, reactive, toRefs, computed, getCurrentInstance, onMounted,nextTick } from "vue";
-import * as echarts from "echarts";
+import { init } from 'echarts/core' // 手动精准导入
 import { getControlData } from "../../api";
 import { useRoute } from 'vue-router'
 
@@ -123,7 +123,7 @@ const initEchart = () => {
             },
         ],
     };
-    var myChart = echarts.init(echart.value);
+    var myChart = init(echart.value);
     myChart.setOption(options);
     let observer = new ResizeObserver((entries) => {
         myChart.resize();
